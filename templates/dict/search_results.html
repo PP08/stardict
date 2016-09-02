@@ -1,0 +1,18 @@
+<p>Your search for: <strong>{{ query }}</strong></p>
+
+{% if words %}
+    <p>the definition for your search is: </p>
+    {% for word in words %}
+        <pre>{{ word.definition }}</pre>
+    {% endfor %}
+
+{% elif similar_words %}
+    <p>these words maybe match your search:</p>
+    <ul>
+        {% for word in similar_words %}
+            <li><a href="{% url 'dict:search'%}?q={{ word.word }}"> {{ word.word }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>there is no word matched your search criteria</p>
+{% endif %}
