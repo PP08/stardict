@@ -4,6 +4,7 @@
     <p>the definition for your search is: </p>
     {% for word in words %}
         <pre>{{ word.definition }}</pre>
+        <pre>{{ table_inflection }}</pre>
     {% endfor %}
 
 {% elif similar_words %}
