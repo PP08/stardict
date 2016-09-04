@@ -34,8 +34,20 @@ class Noun(Word):
         self._table_inflection = {}
         self._table = []
         self._cases = ['nomn', 'gent', 'datv', 'accs', 'ablt', 'loct']
-
+        self._readable_cases = ['cach1', 'cach2', 'cach3', 'cach4', 'cach5', 'cach6']
     def fill_the_table(self):
         for i in self.info:
             if (str(i.tag.case)) in self._cases:
                 self._table.append(i.word)
+
+    def refomart_the_table(self):
+        self._table_inflection = dict(zip(self._readable_cases, self._table))
+
+
+noun = Noun('дом')
+
+noun.fill_the_table()
+
+noun.refomart_the_table()
+
+print (noun._table_inflection)

@@ -16,6 +16,8 @@ def search(request):
 
         noun = Noun(q)
         noun.fill_the_table()
+        noun.refomart_the_table()
+
         normal = Word(q)
         # Word.normalize(normal)
         normal.normalize()
@@ -23,5 +25,6 @@ def search(request):
         similar_words = {}
         if(len(words) == 0):
             similar_words = Dictionary.objects.filter(word__istartswith=q)
-        return render(request, 'dict/search_results.html', {'words': words, 'query': q, 'similar_words': similar_words, 'table_inflection': noun._table})
+        return render(request, 'dict/search_results.html', {'words': words, 'query': q, 'similar_words': similar_words,
+                                                            'table_inflection': noun._table_inflection})
     return render(request, 'dict/search_form.html', {'error_message': "Please submit the search form!"})
