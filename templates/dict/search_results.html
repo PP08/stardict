@@ -1,3 +1,5 @@
+{% include "dict/search_form.html" %}
+
 <p>Your search for: <strong>{{ query }}</strong></p>
 
 {% if words %}
@@ -6,6 +8,26 @@
         <pre>{{ word.definition }}</pre>
     {% endfor %}
 
+    {% ifequal classifier 'NOUN'%}
+        <table>
+            <tr>
+                <th>Cách</th>
+                <th>Số ít</th>
+                <th>Số nhiều</th>
+            </tr>
+
+
+            {% for x,y in context %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ x }}</td>
+                    <td>{{ y }}</td>
+                </tr>
+
+            {% endfor %}
+
+        </table>
+    {% endifequal %}
 
 
 {% elif similar_words %}
@@ -19,4 +41,8 @@
     <p>there is no word matched your search criteria</p>
 {% endif %}
 
-<p>{{ table_inflection.cach6 }}</p>
+
+
+
+
+

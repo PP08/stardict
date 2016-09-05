@@ -12,19 +12,26 @@ def search_form(request):
 
 def search(request):
     if 'q' in request.GET and request.GET['q']:
+
+
         q = request.GET['q']
+        word = Word(q)
+        context = {}
+        classifier = word._pos
 
-        noun = Noun(q)
-        noun.fill_the_table()
-        noun.refomart_the_table()
+        if(classifier == 'NOUN'):
+            noun = Noun(q)
+            noun.lookup_words()
+            noun.detach_words()
+            context = noun._context
 
-        normal = Word(q)
+        # normal = Word(q)
         # Word.normalize(normal)
-        normal.normalize()
-        words = Dictionary.objects.filter(word__exact=normal._normal_word)
+        word.normalize()
+        words = Dictionary.objects.filter(word__exact=word._normal_word)
         similar_words = {}
         if(len(words) == 0):
             similar_words = Dictionary.objects.filter(word__istartswith=q)
         return render(request, 'dict/search_results.html', {'words': words, 'query': q, 'similar_words': similar_words,
-                                                            'table_inflection': noun._table_inflection})
+                                                            'context': context, 'classifier': classifier})
     return render(request, 'dict/search_form.html', {'error_message': "Please submit the search form!"})
