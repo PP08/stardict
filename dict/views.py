@@ -16,18 +16,18 @@ def search(request):
 
         q = request.GET['q']
         word = Word(q)
+        word.normalize()
         context = {}
         classifier = word._pos
 
-        if(classifier == 'NOUN'):
+        if(classifier in ['NOUN','NPRO']):
             noun = Noun(q)
             noun.lookup_words()
-            noun.detach_words()
             context = noun._context
 
         # normal = Word(q)
         # Word.normalize(normal)
-        word.normalize()
+
         words = Dictionary.objects.filter(word__exact=word._normal_word)
         similar_words = {}
         if(len(words) == 0):
