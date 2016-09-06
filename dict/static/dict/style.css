@@ -1,22 +1,21 @@
 
-body, pre {
+#definition{
     font-family: "Open Sans";
-    color: rgba(0, 0, 0, 0.82);
     font-size: 16px;
 }
 
-pre {
-    background-color: gainsboro;
+form{
+    margin-top: 50px;
 }
 
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 15px;
-    border-spacing: 5px;
-    text-align: center;
-}
+/*table, th, td {*/
+    /*border: 1px solid black;*/
+    /*border-collapse: collapse;*/
+    /*padding: 15px;*/
+    /*border-spacing: 5px;*/
+    /*text-align: center;*/
+/*}*/
 
-caption{
-    margin-bottom: 15px;
-}
+/*caption{*/
+    /*margin-bottom: 15px;*/
+/*}*/

@@ -84,12 +84,13 @@ class Noun(Word):
 
 
 
-noun = Noun('ты')
+noun = Noun('контора')
 
 noun.lookup_words()
 
 print(noun._context)
 
+print(noun.info)
 
 
 # print (noun._table_inflection)

@@ -1,67 +1,70 @@
 
 <body>
+    <div class="container">
 
-    {% load static %}
+        {% load static %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'dict/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'dict/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'dict/style.css' %}" type="text/css">
 
-    {% include "dict/search_form.html" %}
+        {% include "dict/search_form.html" %}
 
-    <p>Your search for: <strong>{{ query }}</strong></p>
+        <p>Your search for: <strong>{{ query }}</strong></p>
 
-    {% if words %}
-        <p>the definition for your search is: </p>
-        {% for word in words %}
-            <pre>{{ word.definition }}</pre>
-        {% endfor %}
+        {% if words %}
+            <p>the definition for your search is: </p>
+            {% for word in words %}
+                <pre id="definition">{{ word.definition }}</pre>
+            {% endfor %}
 
-        {% if classifier == 'NOUN' or classifier == 'NPRO' %}
-            <table>
-                <caption><strong>Inflected Forms</strong></caption>
-                <tr>
-                    <th>Cách</th>
-                    <th>Số ít</th>
-                    <th>Số nhiều</th>
-                    <th>Dùng cho câu hỏi</th>
-                    <th>Ví dụ</th>
-                </tr>
-
-
-                {% for con in context %}
+            {% if classifier == 'NOUN' or classifier == 'NPRO' %}
+                <table class="table table-hover">
+                    <caption><strong>Inflected Forms</strong></caption>
                     <tr>
-                        <td>{{ forloop.counter }}</td>
-                        {% if con.sing %}
-                            <td>{{ con.sing }}</td>
-                        {% else %}
-                            <td>-</td>
-                        {% endif %}
-
-                        {% if con.plur %}
-                            <td>{{ con.plur }}</td>
-                        {% else %}
-                            <td>-</td>
-                        {% endif %}
-
-                        <td>{{ con.explaination }}</td>
-                        <td>{{ con.example }}</td>
+                        <th>Cách</th>
+                        <th>Số ít</th>
+                        <th>Số nhiều</th>
+                        <th>Dùng cho câu hỏi</th>
+                        <th>Ví dụ</th>
                     </tr>
 
+
+                    {% for con in context %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            {% if con.sing %}
+                                <td>{{ con.sing }}</td>
+                            {% else %}
+                                <td>-</td>
+                            {% endif %}
+
+                            {% if con.plur %}
+                                <td>{{ con.plur }}</td>
+                            {% else %}
+                                <td>-</td>
+                            {% endif %}
+
+                            <td>{{ con.explaination }}</td>
+                            <td>{{ con.example }}</td>
+                        </tr>
+
+                    {% endfor %}
+
+                </table>
+            {% endif %}
+
+
+        {% elif similar_words %}
+            <p>these words maybe match your search:</p>
+            <ul>
+                {% for word in similar_words %}
+                    <li><a href="{% url 'dict:search'%}?q={{ word.word }}"> {{ word.word }}</a></li>
                 {% endfor %}
-
-            </table>
+            </ul>
+        {% else %}
+            <p>there is no word matched your search criteria</p>
         {% endif %}
-
-
-    {% elif similar_words %}
-        <p>these words maybe match your search:</p>
-        <ul>
-            {% for word in similar_words %}
-                <li><a href="{% url 'dict:search'%}?q={{ word.word }}"> {{ word.word }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>there is no word matched your search criteria</p>
-    {% endif %}
+    </div>
 
 </body>
 
