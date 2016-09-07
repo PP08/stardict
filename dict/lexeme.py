@@ -3,7 +3,7 @@ import pymorphy2
 from pymorphy2 import *
 
 
-inflect_word = "час"
+inflect_word = "лабочка"
 
 morph = pymorphy2.MorphAnalyzer()
 info = morph.parse(inflect_word)[0]

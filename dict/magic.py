@@ -62,7 +62,7 @@ class Noun(Word):
                 else:
                     self._case4['plur'] = i.word
 
-            elif (str(i.tag.case) == 'ablt'):
+            elif (str(i.tag.case) == 'ablt' and not('V-oy' in i.tag)):
                 if ('sing' in str(i.tag.number )):
                     self._case5['sing'] = i.word
                 else:
